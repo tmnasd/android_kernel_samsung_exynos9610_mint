@@ -1,7 +1,7 @@
 name: Stable Release Build (Galaxy A50)
 
 on:
-  wỏkflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   oneui-s-m:
