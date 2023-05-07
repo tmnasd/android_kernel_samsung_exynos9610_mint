@@ -9,23 +9,23 @@ ver="$(cat "$DIR/magisk_version" 2>/dev/null || echo -n 'none')"
 if [ "x$1" = "xcanary" ]
 then
 	nver="canary"
-	magisk_link="https://cdn.jsdelivr.net/gh/huskydg/magisk-files@301b1865c7d47bbed1e375541987aee0cd1b753d/app-release.apk"
+	magisk_link="https://huskydg.github.io/magisk-files/app-release.apk"
 elif [ "x$1" = "xlocal" ]
 then
 	nver="local"
-	magisk_link="https://cdn.jsdelivr.net/gh/huskydg/magisk-files@301b1865c7d47bbed1e375541987aee0cd1b753d/app-release.apk"
+	magisk_link="https://huskydg.github.io/magisk-files/app-release.apk"
 else
 	if [ "x$1" = "x" ]; then
 		nver="$(curl -s https://raw.githubusercontent.com/topjohnwu/magisk-files/master/stable.json | jq '.magisk.version' | cut -d '"' -f 2)"
 	else
 		nver="$1"
 	fi
-	magisk_link="https://cdn.jsdelivr.net/gh/huskydg/magisk-files@301b1865c7d47bbed1e375541987aee0cd1b753d/app-release.apk"
+	magisk_link="https://huskydg.github.io/magisk-files/app-release.apk"
 fi
 
 if [ \( -n "$nver" \) -a \( "$nver" != "$ver" \) -o ! \( -f "$DIR/arm/magiskinit64" \) -o \( "$nver" = "canary" \) -o \( "$nver" = "local" \) ]
 then
-	echo "Updating Magisk from $ver to $nver"
+	echo "Installing Magisk Delta"
 	curl -s --output "$DIR/magisk.zip" -L "$magisk_link"
 	if fgrep 'Not Found' "$DIR/magisk.zip"; then
 		curl -s --output "$DIR/magisk.zip" -L "${magisk_link%.apk}.zip"
